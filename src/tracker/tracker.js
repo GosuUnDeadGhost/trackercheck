@@ -9,17 +9,11 @@ class Tracker extends Component {
     this.state = {
       tracker_id: ''
     }
-    this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-    
-    //this.infoResult = React.createRef();
   }
 
-  handleChange (e) {
-    this.setState({ tracker_id: e.target.value });
-  };
+  handleChange = (e) => this.setState({ tracker_id: e.target.value })
 
-  handleClick () {
+  handleClick = () => {
     console.log(this.state.tracker_id);
     this.getTrackerInfo();
   };
