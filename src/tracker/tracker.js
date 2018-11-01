@@ -21,11 +21,12 @@ class Tracker extends Component {
   };
   
   getTrackerInfo() {
-    fetch(Env.server.url + "/api/trackers/info/" + this.state.tracker_id)
+    fetch(Env.server.url + "?action=GetTrBasicInfo&id=" + this.state.tracker_id)
       .then(response => response.json())
       .then(data => {
         console.log(data);
-        this.setState({tracker_info: data[0]});
+        console.log(data.Data[0].InfoData[0]);
+        this.setState({tracker_info: data.Data[0].InfoData[0]});
       });
   }
   

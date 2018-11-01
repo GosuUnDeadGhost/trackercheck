@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import './tracker_info.css';
+import {TrackerInfoModel} from './tracker_info_model.js';
 import {Env} from '../env.js';
 
 class TrackerInfo extends Component {
 
   constructor(props) {
     super(props);
-    this.tracker_info_labels = {"CarID": "Номер авто", "DriverName": "Водитель", "ID": "ID", "MarkerText": "MarkerText", "uuid": "uuid"};
   }
   
   handleClick = () => {
@@ -14,11 +14,11 @@ class TrackerInfo extends Component {
   };
   
   getTrackerLastData() {
-    fetch(Env.server.url + "/api/trackers/lastData/" + this.props.tracker_info.ID)
+    fetch(Env.server.url + "?action=GetTrAllLastData&id=" + this.props.tracker_info.ID)
       .then(response => response.json())
       .then(data => {
         console.log(data);
-        //this.setState({tracker_info: data[0]});
+        this.setState({tracker_last_data: data.Data[0]});
       });
   }
   
@@ -29,11 +29,11 @@ class TrackerInfo extends Component {
         <thead>
         </thead>
         <tbody>
-          {Object.keys(this.props.tracker_info).map((k, i) => {
+          {Object.keys(TrackerInfoModel).map((k, i) => {
             let value = this.props.tracker_info[k];
             return (
               <tr key={i}>
-                <td>{this.tracker_info_labels[k]}</td>
+                <td>{TrackerInfoModel[k]}</td>
                 <td>{value ? value : "-"}</td>
               </tr>
             );
