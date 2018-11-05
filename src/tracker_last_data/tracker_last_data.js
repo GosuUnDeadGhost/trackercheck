@@ -13,19 +13,37 @@ class TrackerLastData extends Component {
     let item = params[0];
     let value = params[1];
 
-    if (!value)
+    console.log(item, value);
+    if (value == undefined)
       return "-";
     
-    if (item.type == "integer")
-      return this.checkInteger(value);
-    if (item.type == "divisional")
-      return this.checkDivision(value);
-    if (item.type == "datetime")
-      return this.convertToDatetime(value*1000);
-    if (item.type == "boolean")
-      return this.checkBoolean(value);
+    let result;
     
-    return value;
+    if (item.divider)
+      value /= item.divider;
+    
+    switch (item.type) {
+      case "integer": 
+        result = this.checkInteger(value);
+        break;
+      case "divisional":
+        result = this.checkDivision(value);
+        break;
+      case "datetime":
+        result = this.convertToDatetime(value*1000);
+        break;
+      case "boolean":
+        result = this.checkBoolean(value);
+        break;
+      default:
+        result = value;
+        break;
+    }
+    
+    if (item.unit)
+      result += " " + item.unit;
+    
+    return result;
   }
   
   // Целое
@@ -40,7 +58,6 @@ class TrackerLastData extends Component {
   
   // Дата и время
   convertToDatetime = (value) => {
-    //return new Date(value).toString();
     return new Intl.DateTimeFormat('ru-RU', { 
           year: 'numeric', 
           month: 'numeric', 
