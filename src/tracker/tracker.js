@@ -23,19 +23,31 @@ class Tracker extends Component {
   };
   
   getTrackerInfo() {
-    fetch(Env.server.url + "?action=GetTrBasicInfo&id=" + this.state.tracker_id)
-      .then(response => response.json())
-      .then(data => {
+    this.sendRequest({
+      action: "GetTrBasicInfo", 
+      cb: (data) => {
         this.setState({tracker_info: data.Data[0].InfoData[0]});
-      });
+      }
+    });
   }
   
   getTrackerLastData = () => {
-    fetch(Env.server.url + "?action=GetTrAllLastData&id=" + this.state.tracker_info.ID)
+    this.sendRequest({
+      action: "GetTrAllLastData", 
+      cb: (data) => {
+        this.setState({tracker_last_data: data.Data[0]});
+      }
+    });
+  }
+  
+  sendRequest = (params) => {
+    let {action, cb} = params;
+    fetch(Env.server.url + `?action=${action}&id=${this.state.tracker_id}`, {
+        crossDomain:true,
+      })
       .then(response => response.json())
       .then(data => {
-        console.log(data);
-        this.setState({tracker_last_data: data.Data[0]});
+        cb(data);
       });
   }
   
@@ -60,7 +72,7 @@ class Tracker extends Component {
                   );
                 }),
                 <div className="row" key={0}>
-                  <div className="col-3"><button className="btn btn-primary" onClick={this.getTrackerLastData}>Полс. данные</button></div>
+                  <div className="col-3"><button className="btn btn-primary" onClick={this.getTrackerLastData}>Посл. данные</button></div>
                 </div>
               ] : ""
           }
