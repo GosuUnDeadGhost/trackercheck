@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
 import './tracker.css';
-import TrackerInfo from '../tracker_info/tracker_info.js';
+import TrackerLastData from '../tracker_last_data/tracker_last_data.js';
 import {TrackerModel} from './tracker_model.js';
 import {Env} from '../env.js';
-
-import {
-  Route,
-  NavLink,
-  HashRouter
-} from "react-router-dom";
 
 class Tracker extends Component {
   constructor(props) {
@@ -16,14 +10,15 @@ class Tracker extends Component {
     
     this.state = {
       tracker_id: '',
-      tracker_info: ''
+      tracker_info: '',
+      tracker_last_data: '',
+      show_last_data: false,
     }
   }
 
   handleChange = (e) => this.setState({ tracker_id: e.target.value })
 
   handleClick = () => {
-    console.log(this.state.tracker_id);
     this.getTrackerInfo();
   };
   
@@ -31,54 +26,55 @@ class Tracker extends Component {
     fetch(Env.server.url + "?action=GetTrBasicInfo&id=" + this.state.tracker_id)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         this.setState({tracker_info: data.Data[0].InfoData[0]});
+      });
+  }
+  
+  getTrackerLastData = () => {
+    fetch(Env.server.url + "?action=GetTrAllLastData&id=" + this.state.tracker_info.ID)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        this.setState({tracker_last_data: data.Data[0]});
       });
   }
   
   render() {
     return (
-      <div>
-        <h3>Трекер: {this.state.tracker_id}</h3>
-        <input type="text" onChange={this.handleChange} />
-        <button onClick={this.handleClick}>Найти</button>
-        <div>
+        <div className="container">
+          <div className="row">
+            <div className="col-12"><h3>Трекер: {this.state.tracker_id}</h3></div>
+            <div className="col-12"><input type="text" onChange={this.handleChange} /></div>
+            <div className="col-12"><button onClick={this.handleClick}>Найти</button></div>
+          </div>
           {
-            this.state.tracker_info ?
-              <table className="table">
-              <thead>
-              </thead>
-              <tbody>
-                {Object.keys(TrackerModel).map((k, i) => {
+            this.state.tracker_info ? 
+              [
+                Object.keys(TrackerModel).map((k, i) => {
                   let value = this.state.tracker_info[k];
                   return (
-                    <tr key={i}>
-                      <td>{TrackerModel[k]}</td>
-                      <td>{value ? value : "-"}</td>
-                    </tr>
+                    <div className="row" key={i}>
+                      <div className="col-6">{TrackerModel[k]}</div>
+                      <div className="col-6">{value ? value : "-"}</div>
+                    </div>
                   );
-                })}
-                <tr>
-                  <td>
-                    <HashRouter>
-                      <div>
-                        <ul className="header">
-                          <li><NavLink to="/">Полс. данные</NavLink></li>
-                          <li><NavLink to="/tracker/tracker_info">Полс. данные</NavLink></li>
-                        </ul>
-                        <div className="content">
-                          <Route path="/" component={TrackerInfo}/>
-                          <Route path="/tracker/tracker_info" component={TrackerInfo}/>
-                        </div>
-                      </div>
-                    </HashRouter>
-                  </td>
-                </tr>
-              </tbody>
-            </table> : ""
+                }),
+                <div className="row" key={0}>
+                  <div className="col-3"><button className="btn btn-primary" onClick={this.getTrackerLastData}>Полс. данные</button></div>
+                </div>
+              ] : ""
+          }
+          {
+            <div className="row">
+              <div className="col-12">
+                {
+                  this.state.tracker_last_data ? 
+                    <TrackerLastData tracker_last_data={this.state.tracker_last_data}/> : ""
+                }
+              </div>
+            </div>
           }
         </div>
-      </div>
     )
   }
 }
