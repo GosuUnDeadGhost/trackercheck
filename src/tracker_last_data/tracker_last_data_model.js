@@ -1,0 +1,21 @@
+export const TrackerLastDataModel = {
+  adc1: {name: "Аналог. 1", type: "integer"},
+  adc2: {name: "Аналог. 2", type: "integer"},
+  speed: {name: "Скорость", type: "divisional"},
+  battery: {name: "Батарея", type: "divisional"},
+  course: {name: "Курс", type: "integer"},
+  freq_data_1: {name: "Частот. 1", type: "integer"},
+  freq_data_2: {name: "Частот. 2", type: "integer"},
+  fs_data: {name: "RS-232", type: "integer"},
+  gsmstrength: {name: "Сигнал GSM", type: "integer"},
+  innervoltage: {name: "Напряжение", type: "divisional"},
+  last_move_time: {name: "Последний раз двигался", type: "datetime"},
+  satcount: {name: "Сигнал GPS", type: "integer"},
+  sensordata: {name: "sensordata", type: "integer"},
+  unixtime: {name: "Время данных", type: "datetime"},
+  unixtime_coord: {name: "Время валидной координаты", type: "datetime"},
+  valid: {name: "Валидность", type: "boolean"},
+  xcoord: {name: "xcoord", type: "string"},
+  ycoord: {name: "ycoord", type: "string"},
+
+};
