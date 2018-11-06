@@ -24,7 +24,7 @@ class Tracker extends Component {
   
   getTrackerInfo() {
     this.sendRequest({
-      action: "GetTrBasicInfo", 
+      action: "info", 
       cb: (data) => {
         this.setState({tracker_info: data.Data[0].InfoData[0]});
       }
@@ -33,7 +33,7 @@ class Tracker extends Component {
   
   getTrackerLastData = () => {
     this.sendRequest({
-      action: "GetTrAllLastData", 
+      action: "lastData", 
       cb: (data) => {
         this.setState({tracker_last_data: data.Data[0]});
       }
@@ -42,13 +42,14 @@ class Tracker extends Component {
   
   sendRequest = (params) => {
     let {action, cb} = params;
-    fetch(Env.server.url + `?action=${action}&id=${this.state.tracker_id}`, {
-        crossDomain:true,
-      })
-      .then(response => response.json())
-      .then(data => {
-        cb(data);
-      });
+    //fetch(Env.server.url + `?action=${action}&id=${this.state.tracker_id}`, {
+    fetch(Env.server.url + `api/trackers/${action}/` + this.state.tracker_id, {
+      crossDomain:true,
+    })
+    .then(response => response.json())
+    .then(data => {
+      cb(data);
+    });
   }
   
   render() {
