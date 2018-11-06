@@ -15,7 +15,7 @@ export const TrackerLastDataModel = {
   fs_data_3: {name: "RS-485 3", type: "integer"},
   fs_data_4: {name: "RS-485 4", type: "integer"},
   adc1: {name: "Аналог. 1", type: "integer", divider: 100, unit: "В"},
-  adc2: {name: "Аналог. 2", type: "integer", divider: 100},
+  adc2: {name: "Аналог. 2", type: "integer", divider: 100, unit: "В"},
   last_move_time: {name: "Последний раз двигался", type: "datetime"},
   unixtime_coord: {name: "Время валидной координаты", type: "datetime"},
   valid: {name: "Валидность", type: "boolean"},
