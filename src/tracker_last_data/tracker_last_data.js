@@ -1,29 +1,29 @@
 import React, { Component } from 'react';
 import './tracker_last_data.css';
 import {TrackerLastDataModel} from './tracker_last_data_model.js';
-import {Env} from '../env.js';
 
 class TrackerLastData extends Component {
 
   constructor(props) {
     super(props);
+    console.log(props);
   }
-  
+
   checkValue = (...params) => {
     let item = params[0];
     let value = params[1];
 
     console.log(item, value);
-    if (value == undefined)
+    if (value === undefined)
       return "-";
-    
+
     let result;
-    
+
     if (item.divider)
       value /= item.divider;
-    
+
     switch (item.type) {
-      case "integer": 
+      case "integer":
         result = this.checkInteger(value);
         break;
       case "divisional":
@@ -39,39 +39,39 @@ class TrackerLastData extends Component {
         result = value;
         break;
     }
-    
+
     if (item.unit)
       result += " " + item.unit;
-    
+
     return result;
   }
-  
+
   // Целое
   checkInteger = (value) => {
     return parseInt(value);
   }
-  
+
   // Дробное
   checkDivision = (value) => {
     return value.toFixed(2);
   }
-  
+
   // Дата и время
   convertToDatetime = (value) => {
-    return new Intl.DateTimeFormat('ru-RU', { 
-          year: 'numeric', 
-          month: 'numeric', 
-          day: 'numeric', 
-          hour: 'numeric', 
-          minute: 'numeric', 
-          second: 'numeric', 
+    return new Intl.DateTimeFormat('ru-RU', {
+          year: 'numeric',
+          month: 'numeric',
+          day: 'numeric',
+          hour: 'numeric',
+          minute: 'numeric',
+          second: 'numeric',
         }).format(value);
   }
-  
+
   checkBoolean = (value) => {
-    return value == 1 ? "+" : "-";
+    return value === 1 ? "+" : "-";
   }
-  
+
   render() {
     return (
       this.props.tracker_last_data ?
