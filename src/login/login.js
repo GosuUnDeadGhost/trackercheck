@@ -21,7 +21,8 @@ class Login extends Component {
    this.setState({[e.target.name]: e.target.value})
   }
 
-  onLogin = () => {
+  onLogin = (e) => {
+    e.preventDefault();
     this.props.onLogin({
       login: this.state.login,
       password: this.state.password,
@@ -43,7 +44,7 @@ class Login extends Component {
           :
           [
             <div key={0}>
-              <form autoComplete='on'>
+              <form autoComplete='on' method="POST" onSubmit={this.onLogin}>
                 <div className="raw">
                   <label>
                     <div className="col-12">
@@ -66,7 +67,7 @@ class Login extends Component {
                 </div>
                 <div className="raw">
                   <div className="col-12">
-                    <input onClick={this.onLogin} type="submit" value="Login" />
+                    <input type="submit" value="Login" />
                   </div>
                 </div>
               </form>
