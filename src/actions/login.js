@@ -8,9 +8,9 @@ export const onLogin = (data) => dispatch => {
     cb: (data) => {
       console.log(data);
       if (data.isLogin && data.isLogin === 1)
-        dispatch({ type: 'FETCH_ON_LOGIN_SUCCESS', payload: true});
+        dispatch({ type: 'FETCH_ON_LOGIN_SUCCESS', payload: data});
       else
-        dispatch({ type: 'FETCH_ON_LOGIN_SUCCESS', payload: false});
+        dispatch({ type: 'FETCH_ON_LOGOUT_SUCCESS'});
     }
   })
 }

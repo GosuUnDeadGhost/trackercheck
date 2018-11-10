@@ -26,7 +26,8 @@ class App extends Component {
           <ul className="header">
             <li><NavLink to="/">Главная</NavLink></li>
             <li><NavLink to="/tracker">Трекер</NavLink></li>
-            <li><NavLink to="/login">Login</NavLink></li>
+
+            { !this.props.isLogin ? <li><NavLink to="/login">Login</NavLink></li> : <li><NavLink to="/login">Logout ({this.props.username})</NavLink></li>}
           </ul>
           <div className="content">
             <Route exact path="/" component={Home}/>
@@ -41,6 +42,7 @@ class App extends Component {
 
 export default connect(
   state => ({
-    isLogin: state.login
+    isLogin: state.login.isLogin,
+    username: state.login.username,
   })
 )(App);
