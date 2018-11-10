@@ -13,7 +13,6 @@ class TrackerLastData extends Component {
     let item = params[0];
     let value = params[1];
 
-    console.log(item, value);
     if (value === undefined)
       return "-";
 
