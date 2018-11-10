@@ -4,6 +4,8 @@ import './login.css';
 import { connect } from 'react-redux';
 import { onLogin } from '../actions/login'
 
+const LOGIN_ERROR = "Не верная комбинация логин/пароль";
+
 class Login extends Component {
   state = { redirectToReferrer: false };
   constructor() {
@@ -35,13 +37,44 @@ class Login extends Component {
   render() {
     return (
       <div>
-        { !this.props.isLogin ?
-          <div>
-            <input type="text" name="login" value={this.state.login} onChange={(e) => this.handleChange(e)} />
-            <input type="text" name="password" value={this.state.password} onChange={(e) => this.handleChange(e)} />,
-            <button onClick={this.onLogin}>Log in</button>
-          </div>
-         : <button onClick={this.onLogout}>Log out</button>
+        { (this.props.login.isLogin)
+          ?
+            <button onClick={this.onLogout}>Log out</button>
+          :
+          [
+            <div key={0}>
+              <form autoComplete='on'>
+                <div className="raw">
+                  <label>
+                    <div className="col-12">
+                      Login:
+                    </div>
+                    <div className="col-12">
+                      <input type="text" name="login" value={this.state.login} onChange={(e) => this.handleChange(e)} />
+                    </div>
+                  </label>
+                </div>
+                <div className="raw">
+                  <label>
+                    <div className="col-12">
+                      Password:
+                    </div>
+                    <div className="col-12">
+                      <input type="password" name="password" value={this.state.password} onChange={(e) => this.handleChange(e)} />
+                    </div>
+                  </label>
+                </div>
+                <div className="raw">
+                  <div className="col-12">
+                    <input onClick={this.onLogin} type="submit" value="Login" />
+                  </div>
+                </div>
+              </form>
+            </div>,
+            (this.props.login.hasOwnProperty('isLogin') && !this.props.login.isLogin)
+              ? LOGIN_ERROR
+              : ""
+            ]
         }
 
       </div>
@@ -51,6 +84,7 @@ class Login extends Component {
 
 export default connect(
   state => ({
+    login: state.login,
     isLogin: state.login.isLogin,
   }),
   dispatch => ({

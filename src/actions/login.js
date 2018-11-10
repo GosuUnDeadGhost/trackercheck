@@ -10,7 +10,7 @@ export const onLogin = (data) => dispatch => {
       if (data.isLogin && data.isLogin === 1)
         dispatch({ type: 'FETCH_ON_LOGIN_SUCCESS', payload: data});
       else
-        dispatch({ type: 'FETCH_ON_LOGOUT_SUCCESS'});
+        dispatch({ type: 'FETCH_ON_LOGIN_ERROR', payload: data});
     }
   })
 }
