@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import './tracker.css';
 import TrackerLastData from '../tracker_last_data/tracker_last_data.js';
 import {TrackerModel} from './tracker_model.js';
-import {Env} from '../env.js';
 import { getTrackerInfo, getTrackerLastData } from '../actions/tracks';
 
 class Tracker extends Component {
@@ -12,36 +11,18 @@ class Tracker extends Component {
 
     this.state = {
       tracker_id: '',
-      tracker_info: '',
-      tracker_last_data: '',
-      show_last_data: false,
     }
   }
 
   handleChange = (e) => this.setState({ tracker_id: e.target.value })
 
    handleClick = () => {
-     //this.getTrackerInfo();
      this.props.onGetTrackerInfo(this.state.tracker_id);
    };
 
   getTrackerLastData = () => {
-
     this.props.onGetTrackerLastData(this.state.tracker_id);
   }
-
-  sendRequest = (params) => {
-    let {action, cb} = params;
-    //fetch(Env.server.url + `?action=${action}&id=${this.state.tracker_id}`, {
-    fetch(Env.server.url + `api/trackers/${action}/` + this.state.tracker_id, {
-      crossDomain:true,
-    })
-    .then(response => response.json())
-    .then(data => {
-      cb(data);
-    });
-  }
-
 
   render() {
     console.log(this.props);
@@ -81,7 +62,6 @@ export default connect(
   state => ({
     tracks: state.tracks,
     tracker_last_data: state.tracker_last_data,
-    login: state.login
   }),
   dispatch => ({
     onGetTrackerInfo: (id) => {

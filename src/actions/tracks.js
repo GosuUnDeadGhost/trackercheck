@@ -3,7 +3,6 @@ import Request from './request';
 export const getTrackerInfo = (id) => dispatch => {
   Request({
     action: "trackers/info/" + id,
-    //id: id,
     method: "GET",
     cb: (data) => {
       console.log(data);
@@ -15,7 +14,6 @@ export const getTrackerInfo = (id) => dispatch => {
 export const getTrackerLastData = (id) => dispatch => {
   Request({
     action: "trackers/lastData/" + id,
-    //id: id,
     method: "GET",
     cb: (data) => {
       console.log(data);

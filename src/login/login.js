@@ -15,12 +15,6 @@ class Login extends Component {
     }
   }
 
-  // login = () => {
-    // fakeAuth.authenticate(() => {
-    //   this.setState({ redirectToReferrer: true });
-    // });
-  // };
-
   handleChange = (e) => {
    this.setState({[e.target.name]: e.target.value})
   }
@@ -33,11 +27,6 @@ class Login extends Component {
   }
 
   render() {
-    // let { from } = this.props.location.state || { from: { pathname: "/" } };
-    // let { redirectToReferrer } = this.state;
-    //
-    // if (redirectToReferrer) return <Redirect to={from} />;
-
     return (
       <div>
         <input type="text" name="login" value={this.state.login} onChange={(e) => this.handleChange(e)} />

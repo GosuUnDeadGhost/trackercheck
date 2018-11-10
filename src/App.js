@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import {
   Route,
   NavLink,
-  Redirect,
   HashRouter
 } from "react-router-dom";
 
@@ -18,10 +17,6 @@ import './App.css';
 
 
 class App extends Component {
-
-  // checkLogin = () => {
-  //   return this.props.isLogin;
-  // }
 
   render() {
     return (
@@ -43,27 +38,6 @@ class App extends Component {
     );
   }
 }
-
-// const PrivateRoute = ({ component: Component, ...rest }) => {
-//   console.log(...rest);
-//   return (
-//     <Route
-//       {...rest}
-//       render={props =>
-//         true ? (
-//           <Component {...props} />
-//         ) : (
-//           <Redirect
-//             to={{
-//               pathname: "/login",
-//               state: { from: props.location }
-//             }}
-//           />
-//         )
-//       }
-//     />
-//   );
-// }
 
 export default connect(
   state => ({
