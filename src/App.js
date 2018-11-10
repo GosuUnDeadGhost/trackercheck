@@ -12,7 +12,7 @@ import {
 import Tracker from './tracker/tracker.js';
 import Home from './home/home.js';
 import Login from './login/login.js';
-//import PrivateRoute from './privateRoute';
+import PrivateRoute from './privateRoute';
 
 import './App.css';
 
@@ -35,7 +35,7 @@ class App extends Component {
           </ul>
           <div className="content">
             <Route exact path="/" component={Home}/>
-            <PrivateRoute path="/tracker" component={Tracker} />
+            <PrivateRoute path="/tracker" component={Tracker} isLogin={this.props.isLogin} />
             <Route path="/login" component={Login}/>
           </div>
         </div>
@@ -44,29 +44,29 @@ class App extends Component {
   }
 }
 
-const PrivateRoute = ({ component: Component, ...rest }) => {
-  console.log(...rest);
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        true ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/login",
-              state: { from: props.location }
-            }}
-          />
-        )
-      }
-    />
-  );
-}
+// const PrivateRoute = ({ component: Component, ...rest }) => {
+//   console.log(...rest);
+//   return (
+//     <Route
+//       {...rest}
+//       render={props =>
+//         true ? (
+//           <Component {...props} />
+//         ) : (
+//           <Redirect
+//             to={{
+//               pathname: "/login",
+//               state: { from: props.location }
+//             }}
+//           />
+//         )
+//       }
+//     />
+//   );
+// }
 
 export default connect(
   state => ({
-    isLogin: state.isLogin,
+    isLogin: state.login
   })
 )(App);

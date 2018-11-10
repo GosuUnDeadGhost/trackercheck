@@ -80,7 +80,8 @@ class Tracker extends Component {
 export default connect(
   state => ({
     tracks: state.tracks,
-    tracker_last_data: state.tracker_last_data
+    tracker_last_data: state.tracker_last_data,
+    login: state.login
   }),
   dispatch => ({
     onGetTrackerInfo: (id) => {
