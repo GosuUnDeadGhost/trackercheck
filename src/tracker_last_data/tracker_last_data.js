@@ -4,10 +4,9 @@ import {TrackerLastDataModel} from './tracker_last_data_model.js';
 
 class TrackerLastData extends Component {
 
-  constructor(props) {
-    super(props);
-    console.log(props);
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   checkValue = (...params) => {
     let item = params[0];

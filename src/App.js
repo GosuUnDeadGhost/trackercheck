@@ -12,11 +12,20 @@ import Tracker from './tracker/tracker.js';
 import Home from './home/home.js';
 import Login from './login/login.js';
 import PrivateRoute from './privateRoute';
+import { onLogin } from './actions/login';
 
 import './App.css';
 
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+
+    if (localStorage.getItem('login')){
+        this.props.onLogin(JSON.parse(localStorage.getItem('login')));
+    }
+  }
 
   render() {
     return (
@@ -44,5 +53,10 @@ export default connect(
   state => ({
     isLogin: state.login.isLogin,
     username: state.login.username,
+  }),
+  dispatch => ({
+    onLogin: (data) => {
+      dispatch(onLogin(data));
+    }
   })
 )(App);
