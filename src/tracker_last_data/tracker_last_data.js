@@ -70,11 +70,16 @@ class TrackerLastData extends Component {
     return value === 1 ? "+" : "-";
   }
 
+  getMapUtl = () => {
+    return "https://yandex.by/maps/?l=sat,skl,&ll=" + this.props.tracker_last_data.ycoord + "," + this.props.tracker_last_data.xcoord + "&pt=" + this.props.tracker_last_data.ycoord + "E," + this.props.tracker_last_data.xcoord + "N,pmwtm1&z=16";
+  }
+
   render() {
     return (
       this.props.tracker_last_data ?
       <table className="table">
         <thead>
+          <a className="btn btn-success" target="_blank" href={this.getMapUtl()}>На карте</a>
         </thead>
         <tbody>
           {Object.keys(TrackerLastDataModel).map((item, i) => {
