@@ -6,7 +6,7 @@ import {TrackerModel} from './tracker_model.js';
 import { getTrackerInfo, getTrackerLastData } from '../actions/tracks';
 
 import BlockUi from 'react-block-ui';
-import 'react-block-ui/style.css';
+
 
 class Tracker extends Component {
   constructor(props) {
@@ -32,9 +32,9 @@ class Tracker extends Component {
     return (
       <div className="container">
         <BlockUi tag="div" blocking={this.props.tracks_loading || this.props.tracker_last_data_loading}>
-          <div className="row">
+          <div className="row p-2">
             <div className="col-12"><input type="text" value={this.state.tracker_id } onChange={this.handleChange} ref={(input) => { this.trackInput = input }} /></div>
-            <div className="col-12"><button onClick={this.handleClick}>Найти</button></div>
+            <div className="col-12"><button className="btn btn-primary" onClick={this.handleClick}>Найти</button></div>
           </div>
         </BlockUi>
         <BlockUi tag="div" blocking={this.props.tracker_last_data_loading}>
@@ -51,8 +51,8 @@ class Tracker extends Component {
                 </div>
               );
             }),
-            <div className="row" key={1}>
-              <div className="col-3"><button className="btn btn-primary" onClick={ this.getTrackerLastData }>Посл. данные</button></div>
+            <div className="row p-2" key={1}>
+              <div className="col-3"><button className="btn btn-primary" onClick={ this.getTrackerLastData }>Последние данные данные</button></div>
             </div>
           ]
         }

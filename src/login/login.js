@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { onLogin } from '../actions/login'
 
 import BlockUi from 'react-block-ui';
-import 'react-block-ui/style.css';
 
 const LOGIN_ERROR = "Не верная комбинация логин/пароль";
 
