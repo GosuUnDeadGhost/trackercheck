@@ -2,7 +2,6 @@
   "name": "trackercheck",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost/",
   "dependencies": {
     "ajv": "^6.0.0",
     "ajv-keywords": "^3.2.0",
@@ -12,6 +11,7 @@
     "react": "^16.6.0",
     "react-block-ui": "^1.1.3",
     "react-bootstrap": "^0.32.4",
+    "react-device-detect": "^1.6.1",
     "react-dom": "^16.6.0",
     "react-redux": "^5.1.0",
     "react-router-dom": "^4.3.1",
@@ -22,7 +22,7 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "set PORT=4000 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
