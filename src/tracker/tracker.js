@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import './tracker.css';
 import TrackerLastData from '../tracker_last_data/tracker_last_data.js';
 import {TrackerModel} from './tracker_model.js';
-import { getTrackerInfo, getTrackerLastData } from '../actions/tracks';
+import { getTrackerInfo, getTrackerLastData, getTrackerTrack } from '../actions/tracks';
 
 import BlockUi from 'react-block-ui';
 
@@ -14,6 +14,7 @@ class Tracker extends Component {
 
     this.state = {
       tracker_id: this.props.tracks_info ? this.props.tracks_info.ID : '',
+      action: "",
     }
     //console.log(this.state, this.props);
   }
@@ -25,16 +26,28 @@ class Tracker extends Component {
    };
 
   getTrackerLastData = () => {
+    this.setState({ action: "last_data" });
     this.props.onGetTrackerLastData(this.props.tracks_info.ID);
   }
 
+  getTrackerTrack = () => {
+    this.setState({ action: "get_track" });
+    this.props.onGetTrackerTrack(this.props.tracks_info.ID);
+  }
+
+  getAction = () => {
+    if (this.state.action === "last_data")
+      return this.props.tracker_last_data_info && Object.keys(this.props.tracker_last_data_info).length > 0 && <TrackerLastData tracker_last_data={this.props.tracker_last_data_info} />;
+  }
+
   render() {
+    let action;
     return (
       <div className="container">
         <BlockUi tag="div" blocking={this.props.tracks_loading || this.props.tracker_last_data_loading}>
           <div className="row p-2">
             <div className="col-12"><input type="text" value={this.state.tracker_id } onChange={this.handleChange} ref={(input) => { this.trackInput = input }} /></div>
-            <div className="col-12"><button className="btn btn-primary" onClick={this.handleClick}>Найти</button></div>
+            <div className="col-12 m-2"><button className="btn btn-primary" onClick={this.handleClick} >Найти</button></div>
           </div>
         </BlockUi>
         <BlockUi tag="div" blocking={this.props.tracker_last_data_loading}>
@@ -51,19 +64,24 @@ class Tracker extends Component {
                 </div>
               );
             }),
-            <div className="row p-2" key={1}>
-              <div className="col-3"><button className="btn btn-primary" onClick={ this.getTrackerLastData }>Последние данные данные</button></div>
+            <div className="row m-2" key={1}>
+              <div className="col-12">
+                <button className="btn btn-primary m-2" onClick={ this.getTrackerLastData }>Последние данные</button>
+                <button className="btn btn-primary m-2" onClick={ this.getTrackerTrack }>Трек</button>
+              </div>
             </div>
           ]
         }
         </BlockUi>
         <div className="row">
-          {this.props.tracker_last_data_info && Object.keys(this.props.tracker_last_data_info).length > 0 && <TrackerLastData tracker_last_data={this.props.tracker_last_data_info} />}
+          {this.getAction(action)}
         </div>
       </div>
     )
   }
 }
+
+//{this.props.tracker_last_data_info && Object.keys(this.props.tracker_last_data_info).length > 0 && <TrackerLastData tracker_last_data={this.props.tracker_last_data_info} />}
 
 export default connect(
   state => ({
@@ -79,6 +97,9 @@ export default connect(
     },
     onGetTrackerLastData: (id) => {
       dispatch(getTrackerLastData(id));
+    },
+    onGetTrackerTrack: (id) => {
+      dispatch(getTrackerTrack(id));
     }
   })
 )(Tracker);
