@@ -85,7 +85,7 @@ class TrackerLastData extends Component {
       this.props.tracker_last_data ?
       <table className="table">
         <thead>
-          <a className="btn btn-success" target="_blank" href={this.getMapUtl()} rel="noopener noreferrer">Yandex</a>
+          <a className="btn btn-success" target="_blank" href={this.getMapUtl()} rel="noopener noreferrer">Yandex {isMobile ? "mobile" : "desktop"}</a>
         </thead>
         <tbody>
           {Object.keys(TrackerLastDataModel).map((item, i) => {
