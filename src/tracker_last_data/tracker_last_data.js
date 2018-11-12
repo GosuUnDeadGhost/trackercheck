@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import './tracker_last_data.css';
 import {TrackerLastDataModel} from './tracker_last_data_model.js';
 
+import {
+  isMobile
+} from "react-device-detect";
+
 class TrackerLastData extends Component {
 
   // constructor(props) {
@@ -71,6 +75,8 @@ class TrackerLastData extends Component {
   }
 
   getMapUtl = () => {
+    if (isMobile)
+      return "yandexnavi://build_route_on_map?lat_to=" + this.props.tracker_last_data.xcoord + "&lon_to=" + this.props.tracker_last_data.ycoord;
     return "https://yandex.by/maps/?l=sat,skl,&ll=" + this.props.tracker_last_data.ycoord + "," + this.props.tracker_last_data.xcoord + "&pt=" + this.props.tracker_last_data.ycoord + "E," + this.props.tracker_last_data.xcoord + "N,pmwtm1&z=16";
   }
 
@@ -79,7 +85,7 @@ class TrackerLastData extends Component {
       this.props.tracker_last_data ?
       <table className="table">
         <thead>
-          <a className="btn btn-success" target="_blank" href={this.getMapUtl()}>На карте</a>
+          <a className="btn btn-success" target="_blank" href={this.getMapUtl()} rel="noopener noreferrer">Yandex</a>
         </thead>
         <tbody>
           {Object.keys(TrackerLastDataModel).map((item, i) => {
