@@ -74,13 +74,13 @@ class TrackerLastData extends Component {
     return value === 1 ? "+" : "-";
   }
 
-  getMapUtlY = () => {
-    if (isMobile)
-      return "yandexnavi://build_route_on_map?lat_to=" + this.props.tracker_last_data.xcoord + "&lon_to=" + this.props.tracker_last_data.ycoord;
-    return "https://yandex.by/maps/?l=sat,skl,&ll=" + this.props.tracker_last_data.ycoord + "," + this.props.tracker_last_data.xcoord + "&pt=" + this.props.tracker_last_data.ycoord + "E," + this.props.tracker_last_data.xcoord + "N,pmwtm1&z=16";
-  }
+  // getMapUtlY = () => {
+  //   if (isMobile)
+  //     return "geo:" + this.props.tracker_last_data.xcoord + "," + this.props.tracker_last_data.ycoord;
+  //   return "https://yandex.by/maps/?l=sat,skl,&ll=" + this.props.tracker_last_data.ycoord + "," + this.props.tracker_last_data.xcoord + "&pt=" + this.props.tracker_last_data.ycoord + "E," + this.props.tracker_last_data.xcoord + "N,pmwtm1&z=16";
+  // }
 
-  getMapUtlG = () => {
+  getMapUrl = () => {
     if (isMobile)
       return "geo:" + this.props.tracker_last_data.xcoord + "," + this.props.tracker_last_data.ycoord;
     return "https://www.google.com/maps/place/" + this.props.tracker_last_data.xcoord + "," + this.props.tracker_last_data.ycoord;
@@ -93,8 +93,7 @@ class TrackerLastData extends Component {
         <thead>
           <tr>
             <td>
-              <a className="btn btn-success p-20" target="_blank" href={this.getMapUtlY()} rel="noopener noreferrer">Yandex {isMobile ? "mobile" : "desktop"}</a>
-              <a className="btn btn-success p-20" target="_blank" href={this.getMapUtlG()} rel="noopener noreferrer">Google {isMobile ? "mobile" : "desktop"}</a>
+              <a className="btn btn-success p-20" target="_blank" href={this.getMapUrl()} rel="noopener noreferrer">Map {isMobile ? "mobile" : "desktop"}</a>
             </td>
           </tr>
         </thead>
