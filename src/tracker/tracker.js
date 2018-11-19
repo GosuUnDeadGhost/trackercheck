@@ -3,11 +3,10 @@ import { connect } from 'react-redux';
 import './tracker.css';
 import TrackerLastData from '../tracker_last_data/tracker_last_data.js';
 import {TrackerModel} from './tracker_model.js';
-import TrackerCarousel from './trackers_carousel';
+//import TrackerCarousel from './trackers_carousel';
 import { getTrackerInfo, getTrackerLastData, getTrackerTrack } from '../actions/tracks';
-
-import { Tabs, Tab, Carousel } from 'react-bootstrap';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Tabs, Tab } from 'react-bootstrap';
 import BlockUi from 'react-block-ui';
 
 
@@ -18,8 +17,16 @@ class Tracker extends Component {
     this.state = {
       tracker_id: this.props.tracks_info ? this.props.tracks_info.ID : '',
       action: "",
+      key: 1
     }
+
+    this.handleSelect = this.handleSelect.bind(this);
     //console.log(this.state, this.props);
+  }
+
+  handleSelect(key) {
+    console.log('selected' + key);
+    this.setState({ key: key });
   }
 
   handleChange = (e) => this.setState({ tracker_id: e.target.value })
@@ -64,9 +71,22 @@ class Tracker extends Component {
 
   render() {
     let action;
-    const { index, direction } = {index: 0, direction: null};
+    console.log(this.state.key);
     return (
+      <div>
+      <Tabs activeKey={this.state.key} onSelect={this.handleSelect} id="controlled-tab-example">
+        <Tab eventKey={1} title="Tab 1">Tab 1 content</Tab>
+        <Tab eventKey={2} title="Tab 2">Tab 2 content</Tab>
+        <Tab eventKey={3} title="Tab 3">Tab 3 content</Tab>
+      </Tabs>
       <div className="container">
+
+      <Tabs activeKey={this.state.key} onSelect={this.handleSelect} id="controlled-tab-example">
+        <Tab eventKey={1} title="Tab 1">Tab 1 content</Tab>
+        <Tab eventKey={2} title="Tab 2">Tab 2 content</Tab>
+        <Tab eventKey={3} title="Tab 3">Tab 3 content</Tab>
+      </Tabs>
+
         <BlockUi tag="div" blocking={this.props.tracks_loading || this.props.tracker_last_data_loading}>
           <div className="row p-2">
             <div className="col-12"><input type="text" value={this.state.tracker_id } onChange={this.handleChange} ref={(input) => { this.trackInput = input }} /></div>
@@ -77,7 +97,7 @@ class Tracker extends Component {
         {
           this.props.tracks_info && Object.keys(this.props.tracks_info).length > 0 &&
           [
-            <Tabs defaultActiveKey={2} id="uncontrolled-tab-example" key={0}>
+            <Tabs activeKey={this.state.tracker_key} onSelect={this.handleSelect} id="controlled-tab-example" key={0}>
               <Tab eventKey={1} title="Tab 1">
                 Tab 1 content
               </Tab>
@@ -88,36 +108,6 @@ class Tracker extends Component {
                 Tab 3 content
               </Tab>
             </Tabs>,
-
-            <Carousel
-            activeIndex={index}
-            direction={direction}
-            onSelect={this.handleSelect}
-            >
-              <Carousel.Item>
-                <img width={900} height={500} alt="900x500" src="/carousel.png" />
-                <Carousel.Caption>
-                  <h3>First slide label</h3>
-                  <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                </Carousel.Caption>
-              </Carousel.Item>
-              <Carousel.Item>
-                <img width={900} height={500} alt="900x500" src="/carousel.png" />
-                <Carousel.Caption>
-                  <h3>Second slide label</h3>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </Carousel.Caption>
-              </Carousel.Item>
-              <Carousel.Item>
-                <img width={900} height={500} alt="900x500" src="/carousel.png" />
-                <Carousel.Caption>
-                  <h3>Third slide label</h3>
-                  <p>
-                    Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-                  </p>
-                </Carousel.Caption>
-              </Carousel.Item>
-            </Carousel>,
 
             <div className="col-12" key={1}><h3>Трекер: {this.props.tracks_info.ID}</h3></div>,
             Object.keys(TrackerModel).map((k, i) => {
@@ -141,6 +131,7 @@ class Tracker extends Component {
         <div className="row">
           {this.getAction(action)}
         </div>
+      </div>
       </div>
     )
   }
