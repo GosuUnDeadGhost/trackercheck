@@ -5,8 +5,6 @@ import TrackerLastData from '../tracker_last_data/tracker_last_data.js';
 import {TrackerModel} from './tracker_model.js';
 //import TrackerCarousel from './trackers_carousel';
 import { getTrackerInfo, getTrackerLastData, getTrackerTrack } from '../actions/tracks';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Tabs, Tab } from 'react-bootstrap';
 import BlockUi from 'react-block-ui';
 
 
@@ -74,19 +72,28 @@ class Tracker extends Component {
     console.log(this.state.key);
     return (
       <div>
-      <Tabs activeKey={this.state.key} onSelect={this.handleSelect} id="controlled-tab-example">
-        <Tab eventKey={1} title="Tab 1">Tab 1 content</Tab>
-        <Tab eventKey={2} title="Tab 2">Tab 2 content</Tab>
-        <Tab eventKey={3} title="Tab 3">Tab 3 content</Tab>
-      </Tabs>
+
       <div className="container">
+      <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#home">Home</a></li>
+        <li><a data-toggle="tab" href="#menu1">Menu 1</a></li>
+        <li><a data-toggle="tab" href="#menu2">Menu 2</a></li>
+      </ul>
 
-      <Tabs activeKey={this.state.key} onSelect={this.handleSelect} id="controlled-tab-example">
-        <Tab eventKey={1} title="Tab 1">Tab 1 content</Tab>
-        <Tab eventKey={2} title="Tab 2">Tab 2 content</Tab>
-        <Tab eventKey={3} title="Tab 3">Tab 3 content</Tab>
-      </Tabs>
-
+      <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
+          <h3>HOME</h3>
+          <p>Some content.</p>
+        </div>
+        <div id="menu1" class="tab-pane fade">
+          <h3>Menu 1</h3>
+          <p>Some content in menu 1.</p>
+        </div>
+        <div id="menu2" class="tab-pane fade">
+          <h3>Menu 2</h3>
+          <p>Some content in menu 2.</p>
+        </div>
+      </div>
         <BlockUi tag="div" blocking={this.props.tracks_loading || this.props.tracker_last_data_loading}>
           <div className="row p-2">
             <div className="col-12"><input type="text" value={this.state.tracker_id } onChange={this.handleChange} ref={(input) => { this.trackInput = input }} /></div>
@@ -97,17 +104,6 @@ class Tracker extends Component {
         {
           this.props.tracks_info && Object.keys(this.props.tracks_info).length > 0 &&
           [
-            <Tabs activeKey={this.state.tracker_key} onSelect={this.handleSelect} id="controlled-tab-example" key={0}>
-              <Tab eventKey={1} title="Tab 1">
-                Tab 1 content
-              </Tab>
-              <Tab eventKey={2} title="Tab 2">
-                Tab 2 content
-              </Tab>
-              <Tab eventKey={3} title="Tab 3">
-                Tab 3 content
-              </Tab>
-            </Tabs>,
 
             <div className="col-12" key={1}><h3>Трекер: {this.props.tracks_info.ID}</h3></div>,
             Object.keys(TrackerModel).map((k, i) => {
