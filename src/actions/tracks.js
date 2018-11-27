@@ -2,15 +2,16 @@ import Request from './request';
 
 export const getTrackerInfo = (id) => dispatch => {
 
-  dispatch({ type: 'FETCH_ON_TRACKER_INFO_START', payload: {loading: true}});
+  dispatch({ type: 'FETCH_ON_TRACKER_INFO_START'});
 
   Request({
     action: "trackers/info/" + id,
     method: "GET",
     cb: (data) => {
-      dispatch({ type: 'FETCH_ON_TRACKER_INFO_STOP', payload: {loading: false}});
+      dispatch({ type: 'FETCH_ON_TRACKER_INFO_STOP'});
+      //dispatch({ type: 'CLEAR_TRACKER_INFO'});
       //console.log(data);
-      dispatch({ type: 'FETCH_TRACKER_INFO_SUCCESS', payload: {info: data}});
+      dispatch({ type: 'FETCH_TRACKER_INFO_SUCCESS', payload: data});
     }
   })
 }
