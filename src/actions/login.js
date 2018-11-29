@@ -2,7 +2,8 @@ import Request from './request';
 
 export const onLogin = (data) => dispatch => {
   if (data.isLogin){
-    dispatch({ type: 'FETCH_ON_LOGIN_SUCCESS', payload: data});
+    //Убрал так как не работает - Revert back to the working version v2.15.5 (For Chrome) - https://stackoverflow.com/questions/51503198/error-error-error-error-you-may-not-call-store-getstate-while-the-reducer
+    //dispatch({ type: 'FETCH_ON_LOGIN_SUCCESS', payload: data});
     return;
   }
 
